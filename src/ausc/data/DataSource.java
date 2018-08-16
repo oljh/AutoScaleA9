@@ -19,6 +19,7 @@ public final class DataSource {
 		DataSource.setWeight(weight);
 	}
 	
+	
 	public static void addListener(PropertyChangeListener listener) {
 		pcs.addPropertyChangeListener(listener);
 	}
