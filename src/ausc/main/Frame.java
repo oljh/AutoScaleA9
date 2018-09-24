@@ -28,6 +28,7 @@ public class Frame extends JFrame{
 	private Font font;
 	private COMSerialPort comP;
 	private QueriesDB qdb;
+	private InicialData id;
 	
 	
 	Frame (){
@@ -72,6 +73,7 @@ public class Frame extends JFrame{
 				if (evt.getPropertyName() == "weight") {
 					lable.setText(DataSource.getWeightString());
 					try {
+						if (Integer.valueOf(DataSource.getWeightString()) >= Integer.valueOf(id.getMinWeight()))
 						qdb.incertWeight(DataSource.getWeightString());
 					} catch (SQLException e) {
 						e.printStackTrace();
