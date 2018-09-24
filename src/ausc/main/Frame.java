@@ -2,9 +2,12 @@ package ausc.main;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -13,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import ausc.data.DataSource;
+import ausc.data.InicialData;
+import ausc.db.QueriesDB;
 import ausc.serial.COMSerialPort;
 
 
@@ -22,14 +27,25 @@ public class Frame extends JFrame{
 	private JLabel lable;
 	private Font font;
 	private COMSerialPort comP;
+	private QueriesDB qdb;
+	
+	
 	Frame (){
 		super("AutoScale");
 		comP = new COMSerialPort();
+	
 		panel = new JPanel();
 		try {
+			qdb = new QueriesDB();
 			font = Font.createFont(Font.TRUETYPE_FONT, new File("fonts\\7segment.ttf"));
-		} catch (Exception e) {
-			System.out.println("Ўрифт 7segment.ttf в каталоге fonts не найден!");
+		} catch (IOException e) {
+			System.err.println("Ўрифт 7segment.ttf в каталоге fonts не найден!");
+		} catch (FontFormatException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 	public void createGUI() {
@@ -55,7 +71,11 @@ public class Frame extends JFrame{
 			public void propertyChange(PropertyChangeEvent evt) {
 				if (evt.getPropertyName() == "weight") {
 					lable.setText(DataSource.getWeightString());
-					
+					try {
+						qdb.incertWeight(DataSource.getWeightString());
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		
