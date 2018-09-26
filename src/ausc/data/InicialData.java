@@ -13,7 +13,7 @@ public class InicialData {
 
 	public InicialData() {
 		try {
-			fis = new FileInputStream("res//config.property");
+			fis = new FileInputStream("res\\config.properties");
 			property.load(fis);
 			this.minWeight = property.getProperty("minWeight");
 			this.destinationDB = property.getProperty("destinationDB");

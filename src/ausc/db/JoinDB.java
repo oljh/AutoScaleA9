@@ -1,13 +1,10 @@
 package ausc.db;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import ausc.data.InicialData;
 
 class JoinDB {
 
@@ -21,20 +18,20 @@ class JoinDB {
 		Class.forName("org.sqlite.JDBC");
 		try {
 			connection = DriverManager.getConnection("jdbc:sqlite:ausc.db");
+
+			CreateDB();
+
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.err.println(e);
 		}
 		System.out.println("Connection to database \"ausc.db\" successfully!");
 	}
-	
+
 	// Creating DB
 	public void CreateDB() throws ClassNotFoundException, SQLException {
 		st = connection.createStatement();
-		st.execute("CREATE TABLE weights (\r\n" + 
-				"    id_w        INTEGER  PRIMARY KEY AUTOINCREMENT,\r\n" + 
-				"    weights INTEGER,\r\n" + 
-				"    datetime    DATETIME\r\n" + 
-				");");
+		st.execute("CREATE TABLE weights (\r\n" + "    id_w        INTEGER  PRIMARY KEY AUTOINCREMENT,\r\n"
+				+ "    weights INTEGER,\r\n" + "    datetime    DATETIME\r\n" + ");");
 
 	}
 }

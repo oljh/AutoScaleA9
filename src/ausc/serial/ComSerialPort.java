@@ -14,7 +14,7 @@ import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
 import jssc.SerialPortTimeoutException;
 
-public class COMSerialPort {
+public class ComSerialPort {
 
 	protected SerialPort serialPort;
 	protected String dataString;
@@ -26,7 +26,7 @@ public class COMSerialPort {
 
 	
 	
-	public COMSerialPort() {
+	public ComSerialPort() {
 		
 		try {
 			serialPort = new SerialPort("COM5"); //inicialization COM1 ... COM3 .. 
@@ -43,7 +43,7 @@ public class COMSerialPort {
 			new Thread(new Runnable() {
 				public void run() {
 					Toolkit.getDefaultToolkit().beep();
-					JOptionPane.showMessageDialog( null, "Отсутствует либо занят другим процессом параллельный порт COM5 " , "Ошибка!", JOptionPane.ERROR_MESSAGE ); 
+					JOptionPane.showMessageDialog(null, "Отсутствует либо занят другим процессом параллельный порт COM5 " , "Ошибка!", JOptionPane.ERROR_MESSAGE ); 
 				}
 			}).start();
 		}
@@ -69,8 +69,6 @@ public class COMSerialPort {
 
 	
 	public class PortReader implements SerialPortEventListener {
-		private boolean st = false;
-
 		public void serialEvent(SerialPortEvent event) {
 			if (event.isRXCHAR() & event.getEventValue() > 0) {
 				try {
